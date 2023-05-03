@@ -17,7 +17,21 @@ function recovery(){
     console.log('El contenido del input es: '+ userName);
     console.log('El contenido del input es: '+ passContent);
 
-    alert('JJJ')
+    fetch(`http://localhost:8080/login/${userName}/${passContent}`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            mokepon: 'Hola'
+        })
+    })
+        .then(function(res){
+            if (res.ok) {
+                console.log('Datos enviados con exito')
+                alert('a')
+            }
+        })
 
 }
 
