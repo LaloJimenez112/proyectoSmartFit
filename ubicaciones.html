@@ -9,10 +9,17 @@
   </head>
   <body>
     <h3>UBICACIONES RECOMENDADAS</h3>
-    <button onclick="findMe()">Ubicacion</button>
-    <div id="map"></div>
+    <!-- <button onclick="initMap()">Ubicacion</button> -->
+    <div id="map">
+      <!-- //Aqui ira el mapa -->
+    </div>
 
-    <script src="./js/ubicacion.js"></script>
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVSBSK7GmEP4ghf2CdjIKMq970YfX2SUo"></script> -->
+    <!-- AQUI SE CARGAN NUESTRAS FUNCIONES JS -->
+    <script type="module" src="./js/ubicacion.js"></script>
+    <!-- AQUI SE CARGA LA API DE GOOGLE -->
+    <script async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVSBSK7GmEP4ghf2CdjIKMq970YfX2SUo&callback=encuentrame">
+    </script>
+   
   </body>
 </html>
