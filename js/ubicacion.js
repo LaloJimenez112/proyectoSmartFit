@@ -98,7 +98,7 @@ function obtenerLugaresCercanos(){
       },
       (place, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log(status)
+          //console.log(status)
           // Calcula la distancia entre la ubicación del usuario y el lugar
           const distance = calcularDistancia(userLocation, place.geometry.location);
   
