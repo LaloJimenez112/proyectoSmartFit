@@ -8,7 +8,6 @@ let userLocation;
 
 //LISTA DE GIMNASIOS EN LA CDMX
 const gimnasiosIds = [
-
   "ChIJXQvClg8QzYURAZxyA4ewNfw", //Sana fe ...
   "ChIJtbvN6D8B0oUR5gZ4rbPbi9o",
   "ChIJ0w-Qhq3_0YURVJj7TgjzgOw",
@@ -45,49 +44,41 @@ const gimnasiosIds = [
   "ChIJf8sB1S_10YURnGB4YPmPy0k",
   "ChIJr2jYxPqF0YURLphKMnByUd4",
   "ChIJFw1EeACv0YUR1cQ6c1ddr_c",
-  "ChIJ1cakfBX_0YURynZyxvCkT5M"
+  "ChIJ1cakfBX_0YURynZyxvCkT5M",
 ];
 
-
 //Declaramos la funcion encuentrame
-function encuentrame() {
-    //Si podemos utilizar la geolocalizacion entramos al if
-    if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position) {
-            
-            //Obtenemos la latitud y la longitud del USUARIO
-            latitud = position.coords.latitude
-            longitud = position.coords.longitude
-            userLocation = {lat: latitud, lng: longitud};
-                
-            // Pintamos el mapa en el documento HTML con los valores obtenidos de lat y lng
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: userLocation,
-                zoom: 12
-            });
+async function encuentrame() {
+  try {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
 
-            //Colocar un marcador en la ubicación del usuario
-            let marker = new google.maps.Marker({
-                position: userLocation,
-                map: map,
-                title: 'Mi ubicación'
-            });
-            
-        }, function() {
-            // Si hay un error al obtener la ubicación del usuario, mostrar un mensaje de error en la consola
-                console.log('Error: The Geolocation service failed.');
-            });
-    }
+    // Obtenemos la latitud y la longitud del usuario
+    const latitud = position.coords.latitude;
+    const longitud = position.coords.longitude;
+    const userLocation = { lat: latitud, lng: longitud };
 
-    else {
-        //Si el navegador no admite la API Geolocation, mostrar un mensaje de error en la consola
-        console.log('Error: Your browser doesn\'t support geolocation.');
-    }
+    // Pintamos el mapa en el documento HTML con los valores obtenidos de lat y lng
+    const map = new google.maps.Map(document.getElementById("map"), {
+      center: userLocation,
+      zoom: 12,
+    });
 
-    obtenerLugaresCercanos()
+    // Colocar un marcador en la ubicación del usuario
+    const marker = new google.maps.Marker({
+      position: userLocation,
+      map: map,
+      title: "Mi ubicación",
+    });
+
+    await obtenerLugaresCercanos();
+  } catch (error) {
+    console.log("Error: The Geolocation service failed.");
+  }
 }
 
-function obtenerLugaresCercanos(){
+function obtenerLugaresCercanos() {
   // Crea una instancia del servicio de Places
   const service = new google.maps.places.PlacesService(map);
 
@@ -98,10 +89,13 @@ function obtenerLugaresCercanos(){
       },
       (place, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log(status)
+          console.log(status);
           // Calcula la distancia entre la ubicación del usuario y el lugar
-          const distance = calcularDistancia(userLocation, place.geometry.location);
-  
+          const distance = calcularDistancia(
+            userLocation,
+            place.geometry.location
+          );
+
           // Filtra los lugares que están a menos de 500 metros de distancia
           if (distance <= 10000) {
             // Agrega el lugar a tu lista de lugares cercanos
