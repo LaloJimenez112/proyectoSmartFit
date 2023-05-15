@@ -48,89 +48,103 @@ const gimnasiosIds = [
 ];
 
 //Declaramos la funcion encuentrame
-async function encuentrame() {
-  try {
-    const position = await new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
+async function obtenerLugaresCercanos() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Crea una instancia del servicio de Places
+      const service = new google.maps.places.PlacesService(map);
+      let lugaresCercanos = [];
 
-    // Obtenemos la latitud y la longitud del usuario
-    const latitud = position.coords.latitude;
-    const longitud = position.coords.longitude;
-    const userLocation = { lat: latitud, lng: longitud };
+      for (const placeId of gimnasiosIds) {
+        // Hacer una solicitud al servidor para obtener los detalles del lugar
+        const place = await obtenerDetallesLugar(service, placeId);
 
-    // Pintamos el mapa en el documento HTML con los valores obtenidos de lat y lng
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: userLocation,
-      zoom: 12,
-    });
+        // Calcula la distancia entre la ubicación del usuario y el lugar
+        const distance = calcularDistancia(
+          userLocation,
+          place.geometry.location
+        );
 
-    // Colocar un marcador en la ubicación del usuario
-    const marker = new google.maps.Marker({
-      position: userLocation,
-      map: map,
-      title: "Mi ubicación",
-    });
+        // Filtra los lugares que están a menos de 500 metros de distancia
+        if (distance <= 10000) {
+          // Agrega el lugar a la lista de lugares cercanos
+          lugaresCercanos.push(place);
+        }
+      }
 
-    await obtenerLugaresCercanos();
-  } catch (error) {
-    console.log("Error: The Geolocation service failed.");
-  }
+      // Muestra los lugares cercanos en la consola
+      console.log(lugaresCercanos);
+
+      resolve();
+    } catch (error) {
+      console.error(error);
+      reject();
+    }
+  });
 }
 
-function obtenerLugaresCercanos() {
-  // Crea una instancia del servicio de Places
-  const service = new google.maps.places.PlacesService(map);
-
-  gimnasiosIds.forEach((placeId) => {
+function obtenerDetallesLugar(service, placeId) {
+  return new Promise((resolve, reject) => {
     service.getDetails(
       {
         placeId: placeId,
       },
       (place, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log(status);
-          // Calcula la distancia entre la ubicación del usuario y el lugar
-          const distance = calcularDistancia(
-            userLocation,
-            place.geometry.location
-          );
-
-          // Filtra los lugares que están a menos de 500 metros de distancia
-          if (distance <= 10000) {
-            // Agrega el lugar a tu lista de lugares cercanos
-            lugaresCercanos.push(place);
-          }
+          resolve(place);
+        } else {
+          reject(new Error(`Error al obtener detalles del lugar: ${status}`));
         }
       }
     );
   });
-
-  // Espera a que todas las solicitudes de detalles de lugares se completen antes de continuar
-  Promise.all(gimnasiosIds.map((placeId) => service.getDetails({ placeId })))
-    .then((results) => {
-      // Filtra los lugares que están a menos de 500 metros de distancia
-      const filteredResults = filtrarLugaresPorDistancia(results, 10000);
-
-      // Muestra los lugares cercanos en la consola
-      console.log(filteredResults);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 }
 
-// Definimos una función para calcular la distancia entre dos puntos en un plano
-function calcularDistancia(usuarioUbicacion, gimnasioUbicacion) {
-  const distanciaX = gimnasioUbicacion.lat - usuarioUbicacion.lat;
-  const distanciaY = gimnasioUbicacion.lng - usuarioUbicacion.lng;
-  return Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
-}
+async function encuentrame() {
+  return new Promise((resolve, reject) => {
+    // Si podemos utilizar la geolocalización, entramos al if
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            // Obtenemos la latitud y la longitud del USUARIO
+            latitud = position.coords.latitude;
+            longitud = position.coords.longitude;
+            userLocation = { lat: latitud, lng: longitud };
 
-function filtrarLugaresPorDistancia(places, maximaDistancia) {
-  return places.filter((place) => {
-    const distance = calcularDistancia(userLocation, place.geometry.location);
-    return distance <= maximaDistancia;
+            // Pintamos el mapa en el documento HTML con los valores obtenidos de lat y lng
+            map = new google.maps.Map(document.getElementById("map"), {
+              center: userLocation,
+              zoom: 12,
+            });
+
+            // Colocar un marcador en la ubicación del usuario
+            let marker = new google.maps.Marker({
+              position: userLocation,
+              map: map,
+              title: "Mi ubicación",
+            });
+
+            // Espera a que se completen todas las solicitudes de lugares cercanos
+            await obtenerLugaresCercanos();
+
+            resolve();
+          } catch (error) {
+            console.error(error);
+            reject();
+          }
+        },
+        () => {
+          // Si hay un error al obtener la ubicación del usuario, mostrar un mensaje de error en la consola
+          console.log("Error: The Geolocation service failed.");
+          reject();
+        }
+      );
+    } else {
+      // Si el navegador no admite la API Geolocation, mostrar un mensaje de error en la consola
+      console.log("Error: Your browser doesn't support geolocation.");
+      reject();
+    }
   });
 }
 
