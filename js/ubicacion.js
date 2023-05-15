@@ -8,43 +8,51 @@ let userLocation;
 
 //LISTA DE GIMNASIOS EN LA CDMX
 const gimnasiosIds = [
-  "ChIJXQvClg8QzYURAZxyA4ewNfw", //Sana fe ...
-  "ChIJtbvN6D8B0oUR5gZ4rbPbi9o",
-  "ChIJ0w-Qhq3_0YURVJj7TgjzgOw",
-  "ChIJOTKpqhcF0YUR5g7Qo1K3Tpk",
-  "ChIJXezCEZbh0YUR7I0CvssnJ8c",
-  "ChIJoSaKNKJn0YURva8Jmby7ld4",
-  "ChIJq35ZWHoJ0YURnO9b-d0JWLU",
-  "ChIJLcNUXYwU0YUR9A8WjKU5tug",
-  "ChIJC9ndN3hC0oURQTflgXuvmHo",
-  "ChIJkSDRvafv0YURtjquS_ADF6s",
-  "ChIJfQxv9_Nn0YURdl6GmZBv3qw",
-  "ChIJF-b9NNxL0YURK-n5t9R5Ac0",
-  "ChIJxS1vG8Jn0YURch5qw5JEDVc",
-  "ChIJ6c6y8YZm0YURrVyS6Ug4zQg",
-  "ChIJj3FZdJPl0YUR83rmC6muZgA",
-  "ChIJn0zUfH3_0YURn1aCqV9GJ0k",
-  "ChIJv_qP_JtK0YURkhhYmkvU7iQ",
-  "ChIJu3-8zjrp0YURL6wtveu5s9o",
-  "ChIJ6Vx5cONo0YURDseE5xQ6t4w",
-  "ChIJwUeazJcF0YURDjuNkk0iJ6c",
-  "ChIJh-4JYldt0YUR-yhto6vRw1I",
-  "ChIJs5cYZVf_0YURNzvc1__rlLw",
-  "ChIJ6R-VQJL_0YURjjDKq0-Qh5I",
-  "ChIJnVThgJ7b0YURQ97yjM3i4x8",
-  "ChIJNc2jU5_y0YURBxsV-6zjCTI",
-  "ChIJn6fs8ob_0YURsKzcJhtvm9A",
-  "ChIJcU4yw0jN0oUR8s2Uqklqlk4",
-  "ChIJu0RvGKq_0YURbcxlK1-qE3E",
-  "ChIJZdGm_ze_0YUR8REe0K77p9Q",
-  "ChIJJ-UvrZO_0YURdr68OBo-s94",
-  "ChIJ04U2ekD_0YURadWs31DPSgg",
-  "ChIJIY6Kc4v_0YURrOYiYJ3jhBs",
-  "ChIJH6bzZJf_0YUR_zQ9JUGzLd8",
-  "ChIJf8sB1S_10YURnGB4YPmPy0k",
-  "ChIJr2jYxPqF0YURLphKMnByUd4",
-  "ChIJFw1EeACv0YUR1cQ6c1ddr_c",
-  "ChIJ1cakfBX_0YURynZyxvCkT5M",
+  "ChIJQ86rPMv50YUREiHK4SYF0TQ", // lindaivtsa
+  "ChIJz2aPdED_0YURfPnooqGHQyE", //parque delta
+  "ChIJKw8LXsn90YURZNMz_cIGzjc", // parque tezontle
+  "ChIJMdhFNR350YURCTAtB1Yt-O0", // La raza
+  "ChIJ4WnwA5350YURTBfzBlcyncU",
+  "ChIJH7gPaRT50YURyfqp6t_NLPo", // la villa
+  "ChIJx_ipdpYB0oURG3O1yYIbsPw", //revolucion
+  "ChIJ55pysJf_0YURyiDdoEhdYRQ", //Amores
+  "ChIJwfQvsCABzoUR-dYEick2oYI", // gran terraza coapa
+  "ChIJ3x6yQaT_0YURWW5dwIxwb_M", // universidad
+  "ChIJPytfe8b_0YURe-dvUBXYRWs", //la viga
+  "ChIJrepD70H_0YUR0yn1nZ4hnbY", // churubusco
+  "ChIJQZ_0kBz80YUR7FCMFSjqmJU", //aeropuerto
+  "ChIJr6RcObT40YURnzFhKuo26c0", // galerias
+  "ChIJwSZ6V1330YUREvypStdtrdA", // tenayuca
+  "ChIJke8viYT50YURVkN6kdPl4XA", // camarones
+  "ChIJg-tkrHr40YURvsDvjYTXj8k", //ferreria
+  "ChIJ2w-CjyD50YURAI6RCjfm83c", // claveria
+  "ChIJvarZkN_50YURaBCq7oUm9t8", //diagonal cuitlahuac
+  "ChIJoYkAuoz_0YURnB9eZCit4Ts", // Torre diamante
+  "ChIJ_crRpyAC0oURzjW29bFuf3k", // plaza carso
+  "ChIJe9ns-Izx0YURvGp7M4V0ORU", // macroplaza
+  "ChIJGbQmB5Ed0oUR14_wJzlm4Wk", // Perinorte
+  "ChIJgRl1Amod0oUR1-yHblKmFBE", //tlanepantla
+  "ChIJSVoUV1z_0YURFz-6hd48bn8", //condesa
+  "ChIJ969Uh_EC0oURDgkn2T5qPL", //las armas
+  "ChIJh4aech_50YURDgzItKVkrLc", //Masaryk 169
+  "ChIJT1HAfMX50YURlaQI8CEFHdA", //Reforma 99
+  "ChIJC-Zu6KP_0YURpARhglNU2F0", // Reforma 222
+  "ChIJh9yBmu370YURYTE7VNDgiPI", //parque tepeyac
+  "ChIJ-zoI01X90YURWTSKkbJuCSA", //Ermita
+  "ChIJETAZ7Jv90YUR_atlEZqvIAk", //Vicente Guerrero
+  "ChIJQ5-mdvABzoURkcE5yIhD41A", // cuemanco
+  "ChIJTbix1hoBzoURBzNh7q1Bz60", //Arenal
+  "ChIJzbBLsFwAzoURGdbLlau4BxY", //Ciudad Azteca
+  "ChIJ-Yf3i7D80YURcCW4pG5Dqdc", //Neza
+  "ChIJb-AWbGb70YURavwop6wZhyg", // Neza Norte
+  "ChIJM55AAKId0oURFiHIiMvufz8", // multiplaza arboledas
+  "ChIJZYZRJzT_0YUR_wigGMN6lzQ", // Genova
+  "ChIJX8O-B1H_0YUR3aOfu5H8KFA", //Doctores
+  "ChIJFdiOvW3_0YURVWxXVVDLC3s", //Insurgentes
+  "ChIJOxuZuZr_0YURXwwXMxP0Z1Y", //Felix Cuevas
+  "ChIJO62NY9P40YURVn0V-4XUlWY", // reforma 27
+  "ChIJJ-slCfj50YURuhC2kZGn8hU", //reforma 26
+  "ChIJuyjdjkj_0YURX0nVgVrqkG4", // Roma norte
 ];
 
 //Declaramos la funcion encuentrame
