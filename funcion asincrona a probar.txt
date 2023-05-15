@@ -91,3 +91,19 @@ async function encuentrame() {
     }
   });
 }
+
+
+
+Primero, definimos la función encuentrame(), la cual utiliza la API de geolocalización del navegador para obtener la ubicación del usuario. Si el navegador admite la API, se obtienen las coordenadas de latitud y longitud del usuario y se crea un mapa centrado en su ubicación. Si no se puede obtener la ubicación del usuario, se muestra un mensaje de error en la consola.
+
+Luego, llamamos a la función obtenerLugaresCercanos(), que se encargará de obtener los detalles de lugares cercanos a la ubicación del usuario.
+
+En obtenerLugaresCercanos(), creamos una instancia del servicio PlacesService de la API de Places de Google Maps y recorremos un arreglo de IDs de lugares para llamar a la función getDetails() de PlacesService y obtener los detalles de cada lugar. Esta función recibe como parámetros el ID del lugar y una función de callback que se ejecutará cuando se obtengan los detalles del lugar.
+
+La función de callback recibe como parámetros el lugar y el estado de la solicitud. Si la solicitud es exitosa, se calcula la distancia entre la ubicación del usuario y el lugar y se filtran los lugares que estén a menos de 10 km de distancia del usuario.
+
+Por último, utilizamos Promise.all() para esperar a que todas las solicitudes de detalles de lugares se completen antes de continuar. Una vez que se hayan obtenido los detalles de todos los lugares, se filtran los lugares que estén a menos de 10 km de distancia del usuario y se muestran en la consola.
+
+También definimos las funciones calcularDistancia() y filtrarLugaresPorDistancia(). La primera función se encarga de calcular la distancia entre dos puntos en un plano utilizando la fórmula de la distancia euclidiana. La segunda función se encarga de filtrar los lugares que estén a menos de una distancia máxima del usuario.
+
+
