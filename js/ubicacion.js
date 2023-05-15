@@ -84,6 +84,7 @@ function encuentrame() {
         console.log('Error: Your browser doesn\'t support geolocation.');
     }
 
+    obtenerLugaresCercanos()
 }
 
 function obtenerLugaresCercanos(){
@@ -97,6 +98,7 @@ function obtenerLugaresCercanos(){
       },
       (place, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
+          console.log(status)
           // Calcula la distancia entre la ubicación del usuario y el lugar
           const distance = calcularDistancia(userLocation, place.geometry.location);
   
