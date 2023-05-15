@@ -1,0 +1,93 @@
+async function obtenerLugaresCercanos() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Crea una instancia del servicio de Places
+      const service = new google.maps.places.PlacesService(map);
+      let lugaresCercanos = [];
+
+      for (const placeId of gimnasiosIds) {
+        // Hacer una solicitud al servidor para obtener los detalles del lugar
+        const place = await obtenerDetallesLugar(service, placeId);
+        
+        // Calcula la distancia entre la ubicación del usuario y el lugar
+        const distance = calcularDistancia(userLocation, place.geometry.location);
+
+        // Filtra los lugares que están a menos de 500 metros de distancia
+        if (distance <= 10000) {
+          // Agrega el lugar a la lista de lugares cercanos
+          lugaresCercanos.push(place);
+        }
+      }
+
+      // Muestra los lugares cercanos en la consola
+      console.log(lugaresCercanos);
+
+      resolve();
+    } catch (error) {
+      console.error(error);
+      reject();
+    }
+  });
+}
+
+function obtenerDetallesLugar(service, placeId) {
+  return new Promise((resolve, reject) => {
+    service.getDetails(
+      {
+        placeId: placeId,
+      },
+      (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          resolve(place);
+        } else {
+          reject(new Error(`Error al obtener detalles del lugar: ${status}`));
+        }
+      }
+    );
+  });
+}
+
+async function encuentrame() {
+  return new Promise((resolve, reject) => {
+    // Si podemos utilizar la geolocalización, entramos al if
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        try {
+          // Obtenemos la latitud y la longitud del USUARIO
+          latitud = position.coords.latitude;
+          longitud = position.coords.longitude;
+          userLocation = { lat: latitud, lng: longitud };
+
+          // Pintamos el mapa en el documento HTML con los valores obtenidos de lat y lng
+          map = new google.maps.Map(document.getElementById("map"), {
+            center: userLocation,
+            zoom: 12,
+          });
+
+          // Colocar un marcador en la ubicación del usuario
+          let marker = new google.maps.Marker({
+            position: userLocation,
+            map: map,
+            title: "Mi ubicación",
+          });
+
+          // Espera a que se completen todas las solicitudes de lugares cercanos
+          await obtenerLugaresCercanos();
+
+          resolve();
+        } catch (error) {
+          console.error(error);
+          reject();
+        }
+      }, () => {
+        // Si hay un error al obtener la ubicación del usuario, mostrar un mensaje de error en la consola
+        console.log("Error: The Geolocation service failed.");
+        reject();
+      });
+    } else {
+      // Si el navegador no admite la API Geolocation, mostrar un mensaje de error en la consola
+      console.log("Error: Your browser doesn't support geolocation.");
+      reject();
+    }
+  });
+}
