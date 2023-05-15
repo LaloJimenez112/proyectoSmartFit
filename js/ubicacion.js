@@ -52,7 +52,7 @@ function encuentrame() {
         // Pintamos el mapa en el documento HTML con los valores obtenidos de lat y lng
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: latitud, lng: longitud },
-          zoom: 15,
+          zoom: 14,
         });
 
         document.getElementById("busqueda").value = "Smart Fit";
