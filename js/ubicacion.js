@@ -3,6 +3,7 @@ let map;
 let latitud;
 let longitud;
 let lugaresCercanos = [];
+let gym;
 //Cremaos una variable donde almacenamos la ubicacion del usuario
 let userLocation;
 
@@ -11,6 +12,20 @@ const gimnasiosIds = [
   "ChIJtRKjR83-0YURSRoKZak2sSs",//Zocalo
   "ChIJsT3Hgdb-0YURN-n3sjWWlUI"//Salto del agua
 ];
+
+// //CLASE GIMNASIO
+// class gimnasios {
+//   constructor(placeId = null, distancia = null){
+  
+//   }
+// //METODOS
+//   asignarPlaceId(placeId){
+//     this.placeId = placeId;
+//   }
+//   asignarDistancia(distancia){
+//     this.distancia = distancia;
+//   }
+// }
 
 
 //Declaramos la funcion encuentrame
@@ -72,6 +87,14 @@ async function obtenerLugaresCercanos(){
                 console.log(userLocation);
                 const distance = calcularDistancia(userLocation, place.geometry.location);
                 
+                //Agregamos atributos a los objetos de tipo gimnasio
+                // gym = new gimnasios()
+                // gym.asignarDistancia(distance);
+                // gym.asignarPlaceId(placeId);
+
+                lugaresCercanos.push(gym);
+                console.log(lugaresCercanos);
+                
                 // //PINTAR EL LUGAR
                 // let marker = new google.maps.Marker({
                 //   position: {lat: place.geometry.location.lat(), lng:place.geometry.location.lng()},
@@ -80,11 +103,11 @@ async function obtenerLugaresCercanos(){
                 // });
 
                 // Filtra los lugares que están a menos de 500 metros de distancia*****
-                if (distance <= 10000) {
-                  // Agrega el lugar a tu lista de lugares cercanos
-                  lugaresCercanos.push(place);
-                  console.log(lugaresCercanos)
-                }
+                // if (distance <= 10000) {
+                //   // Agrega el lugar a tu lista de lugares cercanos
+                //   lugaresCercanos.push(place);
+                //   console.log(lugaresCercanos)
+                // }
               }
             }
           );
@@ -156,3 +179,33 @@ window.main = main;
 
 //Simulacion de usuarios en el gimnasio 
 //Y determinar cual de los primeros 3 gimnasios es el mas bueno.
+
+// ORDENAMIENTO BURBUJA
+// function ordenar (){ /
+//   // let distanciaMinima = lugaresCercanos[0].distancia;
+//   // //DISTANCIA MINIMA
+//   // forEach.lugaresCercanos((lugar) => {
+//   //   if(lugar.distancia < distanciaMinima){
+//   //     distanciaMinima = lugar.distancia;
+//   //   }
+//   // })
+
+//   let a;
+//   let b;
+//   let aux;
+//   let i = lugaresCercanos.length();
+
+//   for(z = 0; z > i; z++){
+//     a = lugaresCercanos[z];
+//     for(y = 1; y > i; y++){
+//       b = lugaresCercanos[y];
+//       if(a.distancia < b.distancia){
+//         aux = b.distancia;
+//         b.distancia = a.distancia;
+//         a.distancia = aux;
+//       }
+
+//     }
+//   }
+
+// }
