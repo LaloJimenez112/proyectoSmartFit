@@ -4,10 +4,15 @@ body {
 
 h3 {
   font-family: "Rubik", sans-serif;
-  color: azure;
+  color: #7e5109;
   font-size: 45px;
   text-align: center;
   -webkit-text-stroke: 0.9px black;
+  background-color: #ffd27d;
+  border-radius: 5vh;
+  margin: 15px;
+  padding: 25px;
+  border-style: groove;
 }
 
 /* Agregamos un ancho y un alto al mapa 
@@ -22,8 +27,8 @@ Porque sin esto no se puede dibujar el mapa*/
 
 .contenedor {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
 }
 
 hr {
@@ -32,4 +37,42 @@ hr {
 
 #mostrarInfo {
   display: none;
+}
+
+/*boton*/
+#botonMuestra {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  color: #7e5109;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: #ffd27d;
+  border-color: #7e5109;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 35px;
+}
+#botonOcultar {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 20px;
+  color: #7e5109;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  background-color: #ffd27d;
+  border-color: #7e5109;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 35px;
+}
+
+.centrarTitulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
