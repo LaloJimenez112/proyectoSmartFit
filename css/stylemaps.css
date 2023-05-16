@@ -84,9 +84,14 @@ hr {
 
 .contenedorGym {
   position: absolute;
-  right: 50%;
+  right: 10%;
   top: 25%;
   background-color: #7e5109;
-  width: -800px;
-  height: 250px;
+  width: -700px;
+  height: 350px;
+  border-radius: 5vh;
+  box-shadow: black 10px 5px 10px;
+  font-family: "Rubik", sans-serif;
+  color: azure;
+  font-size: 50px;
 }
