@@ -122,13 +122,10 @@ async function obtenerLugaresCercanos() {
       gimnasiosIds.forEach((placeId) => {
         service.getDetails({ placeId: placeId }, (place, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            console.log(status);
+            //console.log(status);
             // Calcula la distancia entre la ubicación del usuario y el lugar
-            console.log(userLocation);
-            const distance = calcularDistancia(
-              userLocation,
-              place.geometry.location
-            );
+            //console.log(userLocation);
+            const distance = calcularDistancia(userLocation, place.geometry.location);
 
             //Agregamos atributos a los objetos de tipo gimnasio
             gym = new gimnasios(place.geometry.location.lat(), place.geometry.location.lng())
@@ -149,12 +146,12 @@ async function obtenerLugaresCercanos() {
 
 // Definimos una función para calcular la distancia entre dos puntos en un plano
 function calcularDistancia(usuarioUbicacion, gimnasioUbicacion) {
-  console.log(
-    gimnasioUbicacion.lat(),
-    gimnasioUbicacion.lng(),
-    usuarioUbicacion.lat,
-    usuarioUbicacion.lng
-  );
+  // console.log(
+  //   gimnasioUbicacion.lat(),
+  //   gimnasioUbicacion.lng(),
+  //   usuarioUbicacion.lat,
+  //   usuarioUbicacion.lng
+  // );
 
   const uUAuxiliarLat = usuarioUbicacion.lat * (Math.PI / 180);
   const uUAuxiliarLng = usuarioUbicacion.lng * (Math.PI / 180);
