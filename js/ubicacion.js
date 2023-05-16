@@ -58,15 +58,15 @@ const gimnasiosIds = [
 
 //CLASE GIMNASIO
 class gimnasios {
-  constructor(latitud, longitud, placeId, distancia){
+  constructor(latitud, longitud, placeId, distancia) {
     this.latitud = latitud;
     this.longitud = longitud;
   }
-//METODOS
-  asignarPlaceId(placeId){
+  //METODOS
+  asignarPlaceId(placeId) {
     this.placeId = placeId;
   }
-  asignarDistancia(distancia){
+  asignarDistancia(distancia) {
     this.distancia = distancia;
   }
 }
@@ -125,16 +125,21 @@ async function obtenerLugaresCercanos() {
             //console.log(status);
             // Calcula la distancia entre la ubicación del usuario y el lugar
             //console.log(userLocation);
-            const distance = calcularDistancia(userLocation, place.geometry.location);
+            const distance = calcularDistancia(
+              userLocation,
+              place.geometry.location
+            );
 
             //Agregamos atributos a los objetos de tipo gimnasio
-            gym = new gimnasios(place.geometry.location.lat(), place.geometry.location.lng())
+            gym = new gimnasios(
+              place.geometry.location.lat(),
+              place.geometry.location.lng()
+            );
             gym.asignarDistancia(distance);
             gym.asignarPlaceId(placeId);
 
             lugaresCercanos.push(gym);
             // console.log(lugaresCercanos);
-
           }
         });
       });
@@ -161,15 +166,16 @@ function calcularDistancia(usuarioUbicacion, gimnasioUbicacion) {
   const difLatitudes = uUAuxiliarLat - gUAuxiliarLat;
   const difLongitudes = uUAuxiliarLng - gUAuxiliarLng;
 
-  const operando1 = Math.sin(difLatitudes/2);
-  const operando2 = Math.sin(difLongitudes/2);
+  const operando1 = Math.sin(difLatitudes / 2);
+  const operando2 = Math.sin(difLongitudes / 2);
 
-  const a = (operando1**2) + Math.cos(uUAuxiliarLat) * Math.cos(gUAuxiliarLat) * (operando2**2);
+  const a =
+    operando1 ** 2 +
+    Math.cos(uUAuxiliarLat) * Math.cos(gUAuxiliarLat) * operando2 ** 2;
   const b = Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const c = 6371000 * b; //DISTANCIA EN METROS, ESTE METODO ME LO PROPORCIONO CHATGPT
 
   return c;
- 
 }
 
 // function filtrarLugaresPorDistancia(places, maximaDistancia) {
@@ -181,7 +187,6 @@ function calcularDistancia(usuarioUbicacion, gimnasioUbicacion) {
 
 async function pruebas() {
   return new Promise((resolve, reject) => {
-  
     setTimeout(function () {
       lugaresCercanos.sort((a, b) => a.distancia - b.distancia);
       console.log("Terminando funcion obtener lugares cercanos");
@@ -189,11 +194,11 @@ async function pruebas() {
         console.log(lugar);
       });
 
-      for(i = 0; i <= 2; i++){
+      for (i = 0; i <= 2; i++) {
         let marker = new google.maps.Marker({
           position: {
             lat: lugaresCercanos[i].latitud,
-            lng: lugaresCercanos[i].longitud
+            lng: lugaresCercanos[i].longitud,
           },
           map: map,
           title: `Gimansio ${i + 1}`,
@@ -211,6 +216,7 @@ async function main() {
   console.log("Ya se obtuvo la ubicacion del usuario");
   await obtenerLugaresCercanos();
   await pruebas();
+  await checarAsistencia();
 }
 
 window.main = main;
@@ -265,4 +271,26 @@ function mostrar() {
 
 function ocultar() {
   document.getElementById("mostrarInfo").style.display = "none";
+}
+
+async function checarAsistencia() {
+  let despliegue = "";
+  do {
+    for (let x = 0; x < 3; x++) {
+      setInterval("location.reload()", 180000);
+      const numero = Math.floor(Math.random() * (85 - 35 + 1) + 35);
+      let y = x + 1;
+      despliegue +=
+        "<ul>" +
+        "<li>Gimnasio " +
+        y +
+        ": " +
+        numero +
+        " personas" +
+        "</li>" +
+        "</ul>";
+
+      document.getElementById("impresion").innerHTML = despliegue;
+    }
+  } while (await new Promise((resolve) => setTimeout(resolve, 180000)));
 }

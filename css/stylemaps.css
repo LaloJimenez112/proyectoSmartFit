@@ -12,7 +12,7 @@ h3 {
   border-radius: 5vh;
   margin: 15px;
   padding: 25px;
-  border-style: groove;
+  border-style: solid;
 }
 
 /* Agregamos un ancho y un alto al mapa 
@@ -75,4 +75,10 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.contenedorGym {
+  position: absolute;
+  right: 50%;
+  top: 25%;
 }
