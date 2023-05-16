@@ -86,4 +86,7 @@ hr {
   position: absolute;
   right: 50%;
   top: 25%;
+  background-color: #7e5109;
+  width: -800px;
+  height: 250px;
 }

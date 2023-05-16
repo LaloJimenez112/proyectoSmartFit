@@ -4,6 +4,8 @@ let latitud;
 let longitud;
 let lugaresCercanos = [];
 let gym;
+let misGym = [];
+let seccion = document.getElementById("mostrarInfo");
 //Cremaos una variable donde almacenamos la ubicacion del usuario
 let userLocation;
 
@@ -265,8 +267,20 @@ function ordenar() {
   }
 }
 
-function mostrar() {
+function mostrarGymnasiosExtras() {
   document.getElementById("mostrarInfo").style.display = "block";
+  misGym.forEach((gyms) => {
+    opcionGym = `
+      <div>
+      <p class="GymTexto">
+      Nombre: ${gyms.nombre},
+      Direccion: ${gyms.direccion},
+      Img: ${gyms.srcfoto}
+      </p>
+      </div>
+    `;
+    seccion.innerHTML += opcionGym;
+  });
 }
 
 function ocultar() {
@@ -276,7 +290,7 @@ function ocultar() {
 async function actualizarAsistencia() {
   let despliegue = "";
   for (let x = 0; x < 3; x++) {
-    const numero = Math.floor(Math.random() * (85 - 20 + 1) + 20);
+    const numero = Math.floor(Math.random() * (85 - 15 + 1) + 15);
     let y = x + 1;
     despliegue +=
       "<ul>" +
@@ -296,3 +310,223 @@ async function checarAsistencia() {
   await actualizarAsistencia();
   setInterval(actualizarAsistencia, 30000);
 }
+
+class gymVarios {
+  constructor(nombre, direccion, srcfoto, foto) {
+    this.nombre = nombre;
+    this.direccion = direccion;
+    this.foto = new Image();
+    this.foto.src = srcfoto;
+  }
+}
+
+lindavista = new gymVarios(
+  "SmartFit Lindavista",
+  "Av. Miguel Othón de Mendizábal Ote. 343, Nueva Industrial Vallejo, Gustavo A. Madero, 07700 Ciudad de México, CDMX",
+  "./img/GYM1.jpeg"
+);
+independencia = new gymVarios(
+  "SmartFit Independencia",
+  "Independencia No. 40 - Centro Ciudad de México, CDMX - 06010",
+  "./img/GYM2.jpeg"
+);
+santFe = new gymVarios(
+  "SmartFit Santa Fe",
+  "Dirección: Av. Vasco de Quiroga 3900, Santa Fe, 05348 Ciudad de México, CDMX.",
+  "./img/GYM3.jpeg"
+);
+polanco = new gymVarios(
+  "SmartFit Polanco",
+  "Dirección: Av. Ejército Nacional 418, Polanco V Secc, 11560 Ciudad de México, CDMX.",
+  "./img/GYM4.jpeg"
+);
+roma = new gymVarios(
+  "SmartFit Roma",
+  "Dirección: Álvaro Obregón 180, Roma Nte., 06700 Ciudad de México, CDMX.",
+  "./img/GYM5.jpeg"
+);
+insur = new gymVarios(
+  "SmartFit Insurgente",
+  "Dirección: Insurgentes Sur 1248, Tlacoquemecatl del Valle, 03200 CDMX.",
+  "./img/GYM6.jpeg"
+);
+coyoacan = new gymVarios(
+  "SmartFit Coyoacan",
+  "Dirección: Av. Universidad 1372, Santa Cruz Atoyac, 03310 Ciudad de México, CDMX.",
+  "./img/GYM7.jpeg"
+);
+doct = new gymVarios(
+  "SmartFit Doctores",
+  "Dirección: Doctor Liceaga 7 - Doctores Doctor Liceaga 7 - Doctores Ciudad de México, CDMX - 06720",
+  "./img/GYM8.jpeg"
+);
+refor = new gymVarios(
+  "SmartFit Reforma",
+  "Dirección: PASEO DE LA REFORMA 26 NIVEL 1 - JUÁREZ Ciudad de México, CDMX - 06600",
+  "./img/GYM9.jpeg"
+);
+aero = new gymVarios(
+  "SmartFit Aeropuerto",
+  "Calz. Ignacio Zaragoza 270, Santa Cruz Aviación, Venustiano Carranza, 15540 Ciudad de México, CDMX",
+  "./img/GYM10.jpeg"
+);
+
+tlate = new gymVarios(
+  "SmartFit Tlatelolco",
+  "Av. Ricardo Flores Magón 210 - Guerrero Ciudad de México,06300",
+  "./img/GYM10.jpeg"
+);
+
+universidad = new gymVarios(
+  "SmartFit Universidad",
+  "Dirección: Alfonso Reyes 5, Hipódromo Condesa, Cuauhtémoc, 06170 Ciudad de México, CDMX",
+  "./img/GYM11.jpeg"
+);
+condesa = new gymVarios(
+  "SmartFit Condesa",
+  "Dirección: Av. Universidad 645, Col del Valle Centro, Benito Juárez, 03100 Ciudad de México, CDMX.",
+  "./img/GYM12.jpeg"
+);
+tlalnepantla = new gymVarios(
+  "SmartFit Tlalnepantla",
+  "Dirección: Av. Gustavo Baz Prada 401, Industrial San Nicolas, 54030 Tlalnepantla de Baz, Méx.",
+  "./img/GYM13.jpeg"
+);
+coapa = new gymVarios(
+  "SmartFit Coapa",
+  "Dirección: Benito Juárez 117, Coapa, Ex-Hacienda Coapa, Coyoacán, 04850 Ciudad de México, CDMX",
+  "./img/GYM14.jpeg"
+);
+aragon = new gymVarios(
+  "SmartFit Plaza Aragon",
+  "Dirección: Av Plazas de Aragon 1 - Joyas de Aragón Ciudad Nezahualcoyotl, Edo MEX - 57139",
+  "./img/GYM15.jpeg"
+);
+texcoco = new gymVarios(
+  "SmartFit Gran Patio Texcoco",
+  "Dirección: AVENIDA MIGUEL HIDALGO S/N PB J-06, 56120 Texcoco, Méx.",
+  "./img/GYM16.jpeg"
+);
+satelite = new gymVarios(
+  "SmartFit Satélite",
+  "Dirección: Perif. Blvd. Manuel Ávila Camacho 2150, Cd. Satélite, 53100 Naucalpan de Juárez, Méx.",
+  "./img/GYM17.jpeg"
+);
+satelite = new gymVarios(
+  "SmartFit Satélite",
+  "Dirección: Perif. Blvd. Manuel Ávila Camacho 2150, Cd. Satélite, 53100 Naucalpan de Juárez, Méx.",
+  "./img/GYM18.jpeg"
+);
+antenas = new gymVarios(
+  "SmartFit Antenas",
+  "Dirección: Av. Canal de Garay 3278, Tulyehualco Canal de Garay, Iztapalapa, 09910 Ciudad de México, CDMX.",
+  "./img/GYM19.jpeg"
+);
+tlalilco = new gymVarios(
+  "SmartFit Tlatilco",
+  "Dirección: Calzada Melchor Ocampo 193, 11300 Ciudad De México, Mex.",
+  "./img/GYM20.jpeg"
+);
+viga = new gymVarios(
+  "SmartFit La Viga",
+  "Dirección: Calzada de la viga No. 1174 - Militar Marte Ciudad de México, CDMX - 09430.",
+  "./img/GYM21.jpeg"
+);
+rosa = new gymVarios(
+  "SmartFit Zona Rosa",
+  "Dirección: Puebla No. 326, Colonia Roma Norte, Ciudad de Mexico, CDMX - 06700.",
+  "./img/GYM22.jpeg"
+);
+tepotzotlan = new gymVarios(
+  "SmartFit Tepotzotlán",
+  "Dirección: Av. Huehuetoca esq. Avenida Jiménez Cantú, Mz. 23 - Fracc. ExHacienda San Miguel Cuautitlán Izcalli, Edo MEX - 54715.",
+  "./img/GYM23.jpeg"
+);
+interlomas = new gymVarios(
+  "SmartFit Interlomas",
+  "Dirección: Boulevard Magnocentro No 35 - Centro Urbano San Fernando la Herradura Huixquilucan de Degollado, Edo MEX - 527605.",
+  "./img/GYM24.jpeg"
+);
+centro = new gymVarios(
+  "SmartFit Centro Histórico",
+  "Dirección: Independencia No. 40 - Centro Ciudad de México, CDMX - 06010.",
+  "/.img/GYM25.jpeg"
+);
+metepec = new gymVarios(
+  "SmartFit Metepec",
+  "Dirección: Prol. Guadalupe Victoria No. 601 NORTE - Purisima Metepec, Edo MEX - 50100.",
+  "./img/GYM26.jpeg"
+);
+churubusco = new gymVarios(
+  "SmartFit Churubusco",
+  "Dirección: Av. Río Churubusco 1072 - Nueva Rosita Ciudad de México, CDMX - 09420.",
+  "./img/GYM27.jpeg"
+);
+ermita = new gymVarios(
+  "SmartFit Ermita",
+  "Dirección: Calz. Ermita Iztapalapa No. 3417 - Xalpa Ciudad de México, CDMX - 09640.",
+  "./img/GYM28.jpeg"
+);
+mixcoac = new gymVarios(
+  "SmartFit Mixcoac",
+  "Dirección: Viaducto Rio de la Piedad 515 - Granjas de Mexico Ciudad de México, CDMX - 08400.",
+  "./img/GYM29.jpeg"
+);
+delta = new gymVarios(
+  "SmartFit Parque Delta",
+  "Dirección: AV CUAUHTEMOC 462 - NARVARTE Ciudad de México, CDMX - 03020.",
+  "./img/GYM30.jpeg"
+);
+miramontes = new gymVarios(
+  "SmartFit Miramontes",
+  "Dirección: Canal de Miramontes 2053, Coapa, Girasoles III, Coyoacán, 04920 Ciudad de México, CDMX.",
+  "./img/GYM31.jpeg"
+);
+ajusco = new gymVarios(
+  "SmartFit Ajusco",
+  "Dirección: Equipamiento Periférico Picacho Ajusco Canal 13 175, 14140 Ciudad de México, CDMX.",
+  "./img/GYM32.jpeg"
+);
+toreo = new gymVarios(
+  "SmartFit Toreo",
+  "Dirección: Colonia, Miguel Hidalgo, 11220 Ciudad de México, CDMX.",
+  "./img/GYM33.jpeg"
+);
+aragon = new gymVarios(
+  "SmartFit Aragón",
+  "Dirección: Constitución de la República 139, Amp la Providencia, Gustavo A. Madero, 07500 Ciudad de México, CDMX",
+  "./img/GYM34.jpeg"
+);
+antonio = new gymVarios(
+  "SmartFit San Antonio",
+  "Dirección: Lorenzo Boturini 258 - Transito Ciudad de México, CDMX - 06820.",
+  "./img/GYM35.jpeg"
+);
+cosme = new gymVarios(
+  "SmartFit San Cosme",
+  "Dirección: Av. Río Churubusco 1072, Los Picos VI B, Iztapalapa, 09420 Ciudad de México, CDMX",
+  "./img/GYM36.jpeg"
+);
+misGym.push(
+  lindavista,
+  independencia,
+  santFe,
+  polanco,
+  roma,
+  insur,
+  coyoacan,
+  doct,
+  refor,
+  aero,
+  tlate,
+  universidad,
+  condesa,
+  tlalnepantla,
+  coapa,
+  aragon,
+  texcoco,
+  satelite,
+  antenas,
+  tlalilco,
+  viga
+);
