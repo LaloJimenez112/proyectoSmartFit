@@ -25,3 +25,11 @@ Porque sin esto no se puede dibujar el mapa*/
   justify-content: center;
   align-items: center;
 }
+
+hr {
+  border-color: black;
+}
+
+#mostrarInfo {
+  display: none;
+}

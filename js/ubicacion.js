@@ -59,7 +59,7 @@ const gimnasiosIds = [
 // //CLASE GIMNASIO
 // class gimnasios {
 //   constructor(placeId = null, distancia = null){
-  
+
 //   }
 // //METODOS
 //   asignarPlaceId(placeId){
@@ -69,7 +69,6 @@ const gimnasiosIds = [
 //     this.distancia = distancia;
 //   }
 // }
-
 
 //Declaramos la funcion encuentrame
 async function encuentrame() {
@@ -120,38 +119,42 @@ async function obtenerLugaresCercanos() {
       const service = new google.maps.places.PlacesService(map);
 
       gimnasiosIds.forEach((placeId) => {
-        service.getDetails({placeId: placeId,},
-            (place, status) => {
-              if (status === google.maps.places.PlacesServiceStatus.OK) {
-                console.log(status)
-                // Calcula la distancia entre la ubicación del usuario y el lugar
-                console.log(userLocation);
-                const distance = calcularDistancia(userLocation, place.geometry.location);
-                
-                //Agregamos atributos a los objetos de tipo gimnasio
-                // gym = new gimnasios()
-                // gym.asignarDistancia(distance);
-                // gym.asignarPlaceId(placeId);
+        service.getDetails({ placeId: placeId }, (place, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            console.log(status);
+            // Calcula la distancia entre la ubicación del usuario y el lugar
+            console.log(userLocation);
+            const distance = calcularDistancia(
+              userLocation,
+              place.geometry.location
+            );
 
-                lugaresCercanos.push(gym);
-                console.log(lugaresCercanos);
-                
-                // //PINTAR EL LUGAR
-                // let marker = new google.maps.Marker({
-                //   position: {lat: place.geometry.location.lat(), lng:place.geometry.location.lng()},
-                //   map: map,
-                //   title: 'Gimansio'
-                // });
+            //Agregamos atributos a los objetos de tipo gimnasio
+            // gym = new gimnasios()
+            // gym.asignarDistancia(distance);
+            // gym.asignarPlaceId(placeId);
 
-                // Filtra los lugares que están a menos de 500 metros de distancia*****
-                // if (distance <= 10000) {
-                //   // Agrega el lugar a tu lista de lugares cercanos
-                //   lugaresCercanos.push(place);
-                //   console.log(lugaresCercanos)
-                // }
-              }
-            }
-        );
+            lugaresCercanos.push(gym);
+            console.log(lugaresCercanos);
+
+            // PINTAR EL LUGAR
+            let marker = new google.maps.Marker({
+              position: {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+              },
+              map: map,
+              title: "Gimansio",
+            });
+
+            // Filtra los lugares que están a menos de 500 metros de distancia*****
+            // if (distance <= 10000) {
+            //   // Agrega el lugar a tu lista de lugares cercanos
+            //   lugaresCercanos.push(place);
+            //   console.log(lugaresCercanos)
+            // }
+          }
+        });
       });
 
       resolve(lugaresCercanos);
@@ -219,31 +222,36 @@ window.main = main;
 //Y determinar cual de los primeros 3 gimnasios es el mas bueno.
 
 // ORDENAMIENTO BURBUJA
-// function ordenar (){ /
-//   // let distanciaMinima = lugaresCercanos[0].distancia;
-//   // //DISTANCIA MINIMA
-//   // forEach.lugaresCercanos((lugar) => {
-//   //   if(lugar.distancia < distanciaMinima){
-//   //     distanciaMinima = lugar.distancia;
-//   //   }
-//   // })
+function ordenar() {
+  let distanciaMinima = lugaresCercanos[0].distancia;
+  //DISTANCIA MINIMA
+  //   // forEach.lugaresCercanos((lugar) => {
+  //   //   if(lugar.distancia < distanciaMinima){
+  //   //     distanciaMinima = lugar.distancia;
+  //   //   }
+  //   // })
 
-//   let a;
-//   let b;
-//   let aux;
-//   let i = lugaresCercanos.length();
+  let a;
+  let b;
+  let aux;
+  let i = lugaresCercanos.length();
+  for (z = 0; z > i; z++) {
+    a = lugaresCercanos[z];
+    for (y = 1; y > i; y++) {
+      b = lugaresCercanos[y];
+      if (a.distancia < b.distancia) {
+        aux = b.distancia;
+        b.distancia = a.distancia;
+        a.distancia = aux;
+      }
+    }
+  }
+}
 
-//   for(z = 0; z > i; z++){
-//     a = lugaresCercanos[z];
-//     for(y = 1; y > i; y++){
-//       b = lugaresCercanos[y];
-//       if(a.distancia < b.distancia){
-//         aux = b.distancia;
-//         b.distancia = a.distancia;
-//         a.distancia = aux;
-//       }
+/*function mostrar() {
+  document.getElementById("mostrarInfo").style.display = "block";
+}
 
-//     }
-//   }
-
-// }
+function ocultar() {
+  document.getElementById("mostrarInfo").style.display = "none";
+}*/
