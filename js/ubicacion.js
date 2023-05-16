@@ -259,10 +259,10 @@ function ordenar() {
   }
 }
 
-/*function mostrar() {
+function mostrar() {
   document.getElementById("mostrarInfo").style.display = "block";
 }
 
 function ocultar() {
   document.getElementById("mostrarInfo").style.display = "none";
-}*/
+}
