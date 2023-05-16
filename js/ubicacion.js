@@ -56,19 +56,20 @@ const gimnasiosIds = [
   "ChIJuyjdjkj_0YURX0nVgVrqkG4", // Roma norte
 ];
 
-// //CLASE GIMNASIO
-// class gimnasios {
-//   constructor(placeId = null, distancia = null){
-
-//   }
-// //METODOS
-//   asignarPlaceId(placeId){
-//     this.placeId = placeId;
-//   }
-//   asignarDistancia(distancia){
-//     this.distancia = distancia;
-//   }
-// }
+//CLASE GIMNASIO
+class gimnasios {
+  constructor(latitud, longitud, placeId, distancia){
+    this.latitud = latitud;
+    this.longitud = longitud;
+  }
+//METODOS
+  asignarPlaceId(placeId){
+    this.placeId = placeId;
+  }
+  asignarDistancia(distancia){
+    this.distancia = distancia;
+  }
+}
 
 //Declaramos la funcion encuentrame
 async function encuentrame() {
@@ -130,29 +131,13 @@ async function obtenerLugaresCercanos() {
             );
 
             //Agregamos atributos a los objetos de tipo gimnasio
-            // gym = new gimnasios()
-            // gym.asignarDistancia(distance);
-            // gym.asignarPlaceId(placeId);
+            gym = new gimnasios(place.geometry.location.lat(), place.geometry.location.lng())
+            gym.asignarDistancia(distance);
+            gym.asignarPlaceId(placeId);
 
             lugaresCercanos.push(gym);
-            console.log(lugaresCercanos);
+            // console.log(lugaresCercanos);
 
-            // PINTAR EL LUGAR
-            let marker = new google.maps.Marker({
-              position: {
-                lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng(),
-              },
-              map: map,
-              title: "Gimansio",
-            });
-
-            // Filtra los lugares que están a menos de 500 metros de distancia*****
-            // if (distance <= 10000) {
-            //   // Agrega el lugar a tu lista de lugares cercanos
-            //   lugaresCercanos.push(place);
-            //   console.log(lugaresCercanos)
-            // }
           }
         });
       });
@@ -170,9 +155,24 @@ function calcularDistancia(usuarioUbicacion, gimnasioUbicacion) {
     usuarioUbicacion.lat,
     usuarioUbicacion.lng
   );
-  const distanciaX = gimnasioUbicacion.lat() - usuarioUbicacion.lat;
-  const distanciaY = gimnasioUbicacion.lng() - usuarioUbicacion.lng;
-  return Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
+
+  const uUAuxiliarLat = usuarioUbicacion.lat * (Math.PI / 180);
+  const uUAuxiliarLng = usuarioUbicacion.lng * (Math.PI / 180);
+  const gUAuxiliarLat = gimnasioUbicacion.lat() * (Math.PI / 180);
+  const gUAuxiliarLng = gimnasioUbicacion.lng() * (Math.PI / 180);
+
+  const difLatitudes = uUAuxiliarLat - gUAuxiliarLat;
+  const difLongitudes = uUAuxiliarLng - gUAuxiliarLng;
+
+  const operando1 = Math.sin(difLatitudes/2);
+  const operando2 = Math.sin(difLongitudes/2);
+
+  const a = (operando1**2) + Math.cos(uUAuxiliarLat) * Math.cos(gUAuxiliarLat) * (operando2**2);
+  const b = Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const c = 6371000 * b; //DISTANCIA EN METROS, ESTE METODO ME LO PROPORCIONO CHATGPT
+
+  return c;
+ 
 }
 
 // function filtrarLugaresPorDistancia(places, maximaDistancia) {
@@ -184,11 +184,25 @@ function calcularDistancia(usuarioUbicacion, gimnasioUbicacion) {
 
 async function pruebas() {
   return new Promise((resolve, reject) => {
+  
     setTimeout(function () {
+      lugaresCercanos.sort((a, b) => a.distancia - b.distancia);
       console.log("Terminando funcion obtener lugares cercanos");
       lugaresCercanos.forEach((lugar) => {
         console.log(lugar);
       });
+
+      for(i = 0; i <= 2; i++){
+        let marker = new google.maps.Marker({
+          position: {
+            lat: lugaresCercanos[i].latitud,
+            lng: lugaresCercanos[i].longitud
+          },
+          map: map,
+          title: `Gimansio ${i + 1}`,
+        });
+      }
+
       resolve();
     }, 1000);
   });
