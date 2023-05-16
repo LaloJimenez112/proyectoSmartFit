@@ -273,24 +273,26 @@ function ocultar() {
   document.getElementById("mostrarInfo").style.display = "none";
 }
 
-async function checarAsistencia() {
+async function actualizarAsistencia() {
   let despliegue = "";
-  do {
-    for (let x = 0; x < 3; x++) {
-      setInterval("location.reload()", 180000);
-      const numero = Math.floor(Math.random() * (85 - 35 + 1) + 35);
-      let y = x + 1;
-      despliegue +=
-        "<ul>" +
-        "<li>Gimnasio " +
-        y +
-        ": " +
-        numero +
-        " personas" +
-        "</li>" +
-        "</ul>";
+  for (let x = 0; x < 3; x++) {
+    const numero = Math.floor(Math.random() * (85 - 20 + 1) + 20);
+    let y = x + 1;
+    despliegue +=
+      "<ul>" +
+      "<li>Gimnasio " +
+      y +
+      ": " +
+      numero +
+      " personas" +
+      "</li>" +
+      "</ul>";
+  }
 
-      document.getElementById("impresion").innerHTML = despliegue;
-    }
-  } while (await new Promise((resolve) => setTimeout(resolve, 180000)));
+  document.getElementById("impresion").innerHTML = despliegue;
+}
+
+async function checarAsistencia() {
+  await actualizarAsistencia();
+  setInterval(actualizarAsistencia, 30000);
 }
