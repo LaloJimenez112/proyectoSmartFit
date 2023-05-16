@@ -1,3 +1,4 @@
+//const { response } = require("express")
 const express = require('express')
 const cors = require('cors')
 const mysql = require('mysql2');
@@ -29,14 +30,20 @@ app.post("/login/:usuarioId/:password", (req, res) => {
     });
 
     connection.query(`SELECT usuarioUsuario, contrasenaUsuario FROM usuario WHERE usuarioUsuario = '${usuarioId}' && contrasenaUsuario = '${password}'`, function (error, results, fields) {
-        if (error) throw error;
-        console.log(results);
+        if (error) {
+          console.log('Hubo un error: ' + error);
+        }
+        else if( results.length > 0){
+          res.setHeader("Access-Control-Allow-Origin", "*")
+          res.send({respuesta: 'encontrado'})
+        }
+        else {
+          res.setHeader("Access-Control-Allow-Origin", "*")
+          res.send({respuesta: 'error'})
+        }
     });
 
     //
-
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.send({valor: 1})
 })
 
 app.listen(8080, () => {
