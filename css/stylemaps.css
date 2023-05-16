@@ -1,5 +1,10 @@
 body {
-  background-color: #aad0e8;
+  margin: 0;
+  padding: 0;
+  background: url(../img/FondoGym.jpg) no-repeat;
+  background-size: cover;
+  font-family: "Rubik", sans-serif;
+  height: 100vh;
 }
 
 h3 {
