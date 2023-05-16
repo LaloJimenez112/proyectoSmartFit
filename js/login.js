@@ -23,16 +23,14 @@ function recovery(){
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            mokepon: 'Hola'
+            saludo: "hola"
         })
     })
         .then(function(res){
             if (res.ok) {
-                console.log('Datos enviados con exito')
-                alert('a')
+                console.log('Datos enviados con exito');
             }
         })
-
 }
 
-window.addEventListener('load', main)
+window.addEventListener('load', main);

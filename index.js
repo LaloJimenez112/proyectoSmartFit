@@ -33,10 +33,10 @@ app.post("/login/:usuarioId/:password", (req, res) => {
         console.log(results);
     });
 
-    connection.end()
+    //
 
     res.setHeader("Access-Control-Allow-Origin", "*")
-    res.end()
+    res.send({valor: 1})
 })
 
 app.listen(8080, () => {
