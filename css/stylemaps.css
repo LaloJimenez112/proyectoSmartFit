@@ -1,10 +1,13 @@
 body {
-  background-color: black;
+  font-family: "Rubik", sans-serif;
+  background-color: #aad0e8;
 }
 
 h3 {
   font-family: "Rubik", sans-serif;
-  color: #ffc300;
+  color: black;
+  font-size: 5vh;
+  text-align: center;
 }
 
 /* Agregamos un ancho y un alto al mapa 
@@ -12,5 +15,14 @@ Porque sin esto no se puede dibujar el mapa*/
 #map {
   height: 500px;
   width: 500px;
-  background: white;
+  border-color: azure;
+  border-style: solid;
+  border-radius: 4vh;
+  box-shadow: 7px 5px 5px azure;
+}
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
